@@ -1,91 +1,102 @@
-const caixaPrincipal = document.querySelector ('.caixa-principal');
-const caixaPerguntas = document.querySelector ('.caixa-perguntas');
-const caixaAlternativas = document.querySelector ('.caixa-alternativas');
-const caixaResultado = document.querySelector ('.caixa-resultado');
-const textoResultado = document.querySelector ('.texto-resultado');
+const caixaPrincipal = document.querySelector('.caixa-principal');
+const caixaPerguntas = document.querySelector('.caixa-perguntas');
+const caixaAlternativas = document.querySelector('.caixa-alternativas');
+const caixaResultado = document.querySelector('.caixa-resultado');
+const textoResultado = document.querySelector('.texto-resultado');
 
 const alternativas = [
     {
         enunciado: "No âmbito social, você prefere:",
         alternativa: [
             {
-                texto: "Alternativa 1",
-                afirmaçao: "Afirmação 1",
+                texto: "Você pode escolher qualquer poder que quiser, porém toda sua família morre",
+                afirmacao: "Parabéns,além de orfão egoista"
             },
             {
-                texto: "Alternativa 2",
-                afirmaçao: "Afirmação 2",
-            },
+                texto: "Você só poderá falar com minhoca, porém toda sua família vive",
+                afirmacao: "Tomara que você goste de terra"
+            }
         ]
-        
-    },
 
+    },
     {
         enunciado: "No âmbito ambiental, você prefere:",
         alternativa: [
             {
-                texto: "Alternativa 3",
-                afirmaçao: "Afirmação 3",
+                texto: "Ter todo o dinheiro que quiser, mas a Amazônia morre",
+                afirmacao: "Oq adianta não vai ter qualidade de vida?"
             },
             {
-                texto: "Alternativa 4",
-                afirmaçao: "Afirmação 4",
-            },
+                texto: "Você pode salvar a Amazônia, mas você nunca mais terá nenhum real na conta",
+                afirmacao: "Vai viver de favor mas a amazonia agradece"
+            }
         ]
-        
-    },
 
+    },
     {
         enunciado: "No âmbito tecnológico, você prefere:",
         alternativa: [
             {
-                texto: "Alternativa 5",
-                afirmaçao: "Afirmação 5",
+                texto: "A internet do mundo todo para, mas você consegue inventar algo e se torna a pessoa mais rica da história",
+                afirmacao: "EGOISTAAA"
             },
             {
-                texto: "Alternativa 6",
-                afirmaçao: "Afirmação 6",
-            },
+                texto: "A Nasa te contrata para o cargo mais alto da empresa, mas metade da população morre por conta do seu trabalho",
+                afirmacao: "Os outros não importam neh... ZÉ RUELA"
+            }
         ]
-        
+
     },
 ]
 
-let atual = 0; 
+let atual = 0;
 let perguntaAtual;
 let historiaFinal = "";
 
-function mostrarPerguntas () {
+function mostraPerguntas() {
     if (atual >= alternativas.length) {
-        mostrarResultado();
-        return
+        mostraResultado();
+        return;
     }
-    perguntaAtual = alternativas [atual];
+
+
+
+
+    perguntaAtual = alternativas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
-    mostrarAlternativas();
+    mostraAlternativas();
 }
 
 
-function mostrarAlternativas(){
-    for (const opcao of perguntaAtual.alternativa) {
+function mostraAlternativas() {
+    for (const opção of perguntaAtual.alternativa) {
         const botaoAlternativa = document.createElement('button');
-        botaoAlternativa.textContent = opcao.texto;
-        botaoAlternativa.addEventListener("click", ()=> respostaSelecionada(opcao));
+        botaoAlternativa.textContent = opção.texto;
+        botaoAlternativa.addEventListener("click", () => respostaSelecionada(opção));
         caixaAlternativas.appendChild(botaoAlternativa);
+
     }
-}
-function respostaSelecionada(opcao){
-    const afirmacoes = opcao.alternativas;
-    historiaFinal += afirmacoes + " ";
-    
-    atual++;
-    mostrarPerguntas();
-}
 
-function mostrarResultado(){
-    caixaPerguntas
+    function respostaSelecionada(opção) {
+        const afirmacoes = opção.afirmacao;
+        historiaFinal += afirmacoes + " ";
+
+        atual++;
+        mostraPerguntas();
+
+    }
 
 
 }
 
+function mostraResultado() {
+    caixaPerguntas.textContent = "Em resumo você escolheu...";
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent = " ";
+}
+
+
+
+
+mostraPerguntas();
